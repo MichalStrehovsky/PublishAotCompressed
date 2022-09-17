@@ -1,0 +1,33 @@
+<Project Sdk="Microsoft.Build.NoTargets">
+  <PropertyGroup>
+
+    <TargetFramework>netstandard2.0</TargetFramework>
+
+    <PackageId>PublishAotCompressed</PackageId>
+    <Version Condition="'$(Version)' == ''">42.42.42-dev</Version>
+    <Authors>Michal Strehovsky</Authors>
+    <Company>Michal Strehovsky</Company>
+    <Description>MSBuild targets to compress outputs of PublishAot with UPX. Simply add reference to this package and publish with PublishAot as usual.</Description>
+    <PackageProjectUrl>https://github.com/MichalStrehovsky/PublishCompressedAot</PackageProjectUrl>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="PublishAotCompressed.targets">
+      <Pack>true</Pack>
+      <PackagePath>build</PackagePath>
+    </None>
+    <None Include="../tools/linux-x64/*">
+      <Pack>true</Pack>
+      <PackagePath>tools/linux-x64</PackagePath>
+    </None>
+    <None Include="../tools/win-x64/*">
+      <Pack>true</Pack>
+      <PackagePath>tools/win-x64</PackagePath>
+    </None>
+    <None Include="../README.md">
+      <Pack>true</Pack>
+      <PackagePath>/</PackagePath>
+    </None>
+  </ItemGroup>
+</Project>

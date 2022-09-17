@@ -1,0 +1,27 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <PropertyGroup>
+    <UpxSemaphorePath>$(IntermediateOutputPath)upx.semaphore</UpxSemaphorePath>
+  </PropertyGroup>
+
+  <Target Name="UpxCompress"
+    Condition="'$(PublishAotCompressed)' != 'false'"
+    AfterTargets="LinkNative"
+    Inputs="$(NativeBinary)"
+    Outputs="$(UpxSemaphorePath)">
+
+    <PropertyGroup>
+      <_OSIdentifier Condition="$(RuntimeIdentifier.StartsWith('win'))">win</_OSIdentifier>
+      <_OSIdentifier Condition="'$(OSIdentifier)' == ''">linux</_OSIdentifier>
+
+      <_OSHostArch>$([System.Runtime.InteropServices.RuntimeInformation]::OSArchitecture.ToString().ToLowerInvariant)</_OSHostArch>
+
+      <_UpxArgs Condition="'$(CompressBest)' != 'false'">--best $(_UpxArgs)</_UpxArgs>
+    </PropertyGroup>
+
+    <Exec Command="$(MSBuildThisFileDirectory)../tools/$(_OSIdentifier)-$(_OSHostArch)/upx $(_UpxArgs) $(NativeBinary)" />
+
+    <Touch Files="$(UpxSemaphorePath)" AlwaysCreate="true" />
+  </Target>
+
+</Project>
