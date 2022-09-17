@@ -12,7 +12,7 @@
 
     <PropertyGroup>
       <_OSIdentifier Condition="$(RuntimeIdentifier.StartsWith('win'))">win</_OSIdentifier>
-      <_OSIdentifier Condition="'$(OSIdentifier)' == ''">linux</_OSIdentifier>
+      <_OSIdentifier Condition="'$(_OSIdentifier)' == ''">linux</_OSIdentifier>
 
       <_OSHostArch>$([System.Runtime.InteropServices.RuntimeInformation]::OSArchitecture.ToString().ToLowerInvariant)</_OSHostArch>
 
