@@ -1,0 +1,48 @@
+name: CI
+
+on:
+  pull_request:
+    branches: [ master ]
+
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Release version to create'     
+        required: true
+
+jobs:
+  build_and_test:
+    strategy:
+      matrix:
+        include:
+          - vm: ubuntu-latest
+#          - vm: windows-latest
+    runs-on: ${{ matrix.vm }}
+    name: Build and test ${{ matrix.vm }}
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+      - name: Setup dotnet
+        uses: actions/setup-dotnet@v2
+        with:
+          dotnet-version: '7.0.x'
+          include-prerelease: true
+      - name: Build (CI)
+        if: ${{ github.event.inputs.version == '' }}
+        run: |
+          dotnet build -t:Pack src/PublishAotCompressed.nuproj
+          dotnet publish -r linux-x64 -c Release test/Hello.csproj
+      - name: Build (CD)
+        if: ${{ github.event.inputs.version != '' }}
+        run: dotnet build -t:Pack src/PublishAotCompressed.nuproj -p:Version=${{ github.event.inputs.version }}
+      - name: Archive NuGet
+        if: ${{ github.event.inputs.version != '' }}
+        uses: actions/upload-artifact@v2
+        with:
+          name: PublishAotCompressed.${{ github.event.inputs.version }}.nupkg
+          path: src/bin/Debug/PublishAotCompressed.${{ github.event.inputs.version }}.nupkg
+      - name: Create tag
+        if: ${{ github.event.inputs.version != '' && github.actor == 'MichalStrehovsky' }}
+        run: |
+          git tag v${{ github.event.inputs.version }}
+          git push origin v${{ github.event.inputs.version }}
