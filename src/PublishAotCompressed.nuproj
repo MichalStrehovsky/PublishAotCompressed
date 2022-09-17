@@ -8,7 +8,8 @@
     <Authors>Michal Strehovsky</Authors>
     <Company>Michal Strehovsky</Company>
     <Description>MSBuild targets to compress outputs of PublishAot with UPX. Simply add reference to this package and publish with PublishAot as usual.</Description>
-    <PackageProjectUrl>https://github.com/MichalStrehovsky/PublishCompressedAot</PackageProjectUrl>
+    <PackageProjectUrl>https://github.com/MichalStrehovsky/PublishAotCompressed</PackageProjectUrl>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
 
