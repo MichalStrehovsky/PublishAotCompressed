@@ -5,6 +5,14 @@
     <OutputType>Exe</OutputType>
     <TargetFramework>net7.0</TargetFramework>
     <PublishAot>true</PublishAot>
+    
+    <!-- Place debug symbols into a separate file on Unix-like platforms -->
+    <StripSymbols>true</StripSymbols>
+    
+    <!--
+      Enable documented size saving switches:
+      https://learn.microsoft.com/en-us/dotnet/core/deploying/trimming/trimming-options?pivots=dotnet-6-0#trimming-framework-library-features
+    -->
     <EventSourceSupport>false</EventSourceSupport>
     <UseSystemResourceKeys>true</UseSystemResourceKeys>
     <InvariantGlobalization>true</InvariantGlobalization>
