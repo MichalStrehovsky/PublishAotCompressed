@@ -1,6 +1,6 @@
 # PublishAotCompressed
 
-This is a NuGet package with an MSBuild target to compress results of [PublishAot](https://learn.microsoft.com/en-us/dotnet/core/deploying/native-aot/) with [UPX](https://upx.github.io/). Simply add a reference to this package and publish with `PublishAot` as usual. The result of AOT compilation will be compressed. UPX typically achieves 60% or more size savings.
+This is a NuGet package with an MSBuild target to compress results of [PublishAot](https://learn.microsoft.com/en-us/dotnet/core/deploying/native-aot/) with [UPX](https://upx.github.io/). Simply add a reference to this package and publish with `PublishAot` as usual. The result of AOT compilation will be compressed. UPX typically achieves 60% or more size savings. To achieve even more compression at the cost of startup time, specify `<PublishLzmaCompressed>true</PublishLzmaCompressed>` property as well.
 
 UPX will in-memory decompress the program at launch. This is typically not observable.
 
