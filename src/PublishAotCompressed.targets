@@ -17,6 +17,7 @@
       <_OSHostArch>$([System.Runtime.InteropServices.RuntimeInformation]::OSArchitecture.ToString().ToLowerInvariant)</_OSHostArch>
 
       <_UpxArgs Condition="'$(CompressBest)' != 'false'">--best $(_UpxArgs)</_UpxArgs>
+      <_UpxArgs Condition="'$(PublishLzmaCompressed)' == 'true'">--lzma $(_UpxArgs)</_UpxArgs>
     </PropertyGroup>
 
     <Exec Command="&quot;$(MSBuildThisFileDirectory)../tools/$(_OSIdentifier)-$(_OSHostArch)/upx&quot; $(_UpxArgs) &quot;$(NativeBinary)&quot;" />
