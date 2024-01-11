@@ -18,6 +18,9 @@
 
       <_UpxArgs Condition="'$(CompressBest)' != 'false'">--best $(_UpxArgs)</_UpxArgs>
       <_UpxArgs Condition="'$(PublishLzmaCompressed)' == 'true'">--lzma $(_UpxArgs)</_UpxArgs>
+      <_UpxArgs Condition="'$(CompressBrute)' == 'true'">--brute $(_UpxArgs)</_UpxArgs>
+      <_UpxArgs Condition="'$(CompressUltraBrute)' == 'true'">--ultra-brute $(_UpxArgs)</_UpxArgs>
+      <_UpxArgs Condition="'$(SkipIcons)' == 'true'">--compress-icons=0 $(_UpxArgs)</_UpxArgs>
     </PropertyGroup>
 
     <Exec Command="&quot;$(MSBuildThisFileDirectory)../tools/$(_OSIdentifier)-$(_OSHostArch)/upx&quot; $(_UpxArgs) &quot;$(NativeBinary)&quot;" />
