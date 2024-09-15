@@ -13,11 +13,15 @@
     <PropertyGroup>
       <_OSIdentifier Condition="$(RuntimeIdentifier.StartsWith('win'))">win</_OSIdentifier>
       <_OSIdentifier Condition="'$(_OSIdentifier)' == ''">linux</_OSIdentifier>
+      <_ArchitectureIdentifier>$(RuntimeIdentifier.SubString($([MSBuild]::Add($(RuntimeIdentifier.LastIndexOf('-')), 1))))</_ArchitectureIdentifier>
 
       <_OSHostArch>$([System.Runtime.InteropServices.RuntimeInformation]::OSArchitecture.ToString().ToLowerInvariant)</_OSHostArch>
 
       <_UpxArgs Condition="'$(CompressBest)' != 'false'">--best $(_UpxArgs)</_UpxArgs>
       <_UpxArgs Condition="'$(PublishLzmaCompressed)' == 'true'">--lzma $(_UpxArgs)</_UpxArgs>
+
+      <!-- Workaround -->
+      <_UpxArgs Condition="'$(_ArchitectureIdentifier)' == 'x86'">--force $(_UpxArgs)</_UpxArgs>
     </PropertyGroup>
 
     <Exec Command="&quot;$(MSBuildThisFileDirectory)../tools/$(_OSIdentifier)-$(_OSHostArch)/upx&quot; $(_UpxArgs) &quot;$(NativeBinary)&quot;" />
