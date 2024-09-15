@@ -37,7 +37,7 @@ jobs:
         run: dotnet build -t:Pack src/PublishAotCompressed.nuproj -p:Version=${{ github.event.inputs.version }}
       - name: Archive NuGet
         if: ${{ github.event.inputs.version != '' }}
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: PublishAotCompressed.${{ github.event.inputs.version }}.nupkg
           path: src/bin/Debug/PublishAotCompressed.${{ github.event.inputs.version }}.nupkg
