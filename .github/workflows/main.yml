@@ -16,7 +16,9 @@ jobs:
       matrix:
         include:
           - vm: ubuntu-latest
-#          - vm: windows-latest
+            runtime: linux-x64
+          - vm: windows-latest
+            runtime: win-x86
     runs-on: ${{ matrix.vm }}
     name: Build and test ${{ matrix.vm }}
     steps:
@@ -25,13 +27,13 @@ jobs:
       - name: Setup dotnet
         uses: actions/setup-dotnet@v2
         with:
-          dotnet-version: '7.0.x'
+          dotnet-version: '9.0.x'
           include-prerelease: true
       - name: Build (CI)
         if: ${{ github.event.inputs.version == '' }}
         run: |
           dotnet build -t:Pack src/PublishAotCompressed.nuproj
-          dotnet publish -r linux-x64 -c Release test/Hello.csproj
+          dotnet publish -r ${{ matrix.runtime }} -c Release test/Hello.csproj
       - name: Build (CD)
         if: ${{ github.event.inputs.version != '' }}
         run: dotnet build -t:Pack src/PublishAotCompressed.nuproj -p:Version=${{ github.event.inputs.version }}
