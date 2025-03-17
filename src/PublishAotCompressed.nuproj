@@ -30,6 +30,10 @@
       <Pack>true</Pack>
       <PackagePath>tools/win-x64</PackagePath>
     </None>
+    <None Include="../tools/win-x86/*">
+      <Pack>true</Pack>
+      <PackagePath>tools/win-x86</PackagePath>
+    </None>
     <None Include="../README.md">
       <Pack>true</Pack>
       <PackagePath>/</PackagePath>
