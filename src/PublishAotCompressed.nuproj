@@ -25,7 +25,11 @@
     <None Include="../tools/linux-arm64/*">
       <Pack>true</Pack>
       <PackagePath>tools/linux-arm64</PackagePath>
-    </None>	
+    </None>
+    <None Include="../tools/linux-arm/*">
+      <Pack>true</Pack>
+      <PackagePath>tools/linux-arm</PackagePath>
+    </None>
     <None Include="../tools/win-x64/*">
       <Pack>true</Pack>
       <PackagePath>tools/win-x64</PackagePath>
